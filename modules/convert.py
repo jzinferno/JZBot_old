@@ -8,15 +8,18 @@ def convert_text(text):
     full_text = {
         'ru': {
             'text_1': 'Необходимо ответить на сообщение которое содержит изображение',
-            'text_2': 'Не удалось отредактировать фото'
+            'text_2': 'Не удалось отредактировать фото',
+            'text_3': 'Максимально доступное разрешение 4K 4096x2160'
         },
         'uk': {
             'text_1': 'Необходимо ответить на сообщение которое содержит изображение',
-            'text_2': 'Не удалось отредактировать фото'
+            'text_2': 'Не удалось отредактировать фото',
+            'text_3': 'Максимально доступное разрешение 4K 4096x2160'
         },
         'en': {
             'text_1': 'Необходимо ответить на сообщение которое содержит изображение',
-            'text_2': 'Не удалось отредактировать фото'
+            'text_2': 'Не удалось отредактировать фото',
+            'text_3': 'Максимально доступное разрешение 4K 4096x2160'
         }
     }
     if GetBotLang() in ['ru', 'uk']:
@@ -48,16 +51,21 @@ async def main_convert(msg):
                         outp_fmt = cmds[0]
                     file_id = photo_msg[-1].file_id if 'photo' in reply_msg else photo_msg.file_id
                     file_format = 'jpg' if 'photo' in reply_msg else photo_msg.mime_type.split('/')[1]
-                    await bot.download_file((await bot.get_file(file_id)).file_path, f'{outpdir}/{file_id}.{file_format}')
-                    img = Image.open(f'{outpdir}/{file_id}.{file_format}')
-                    if len(cmds) >= 2:
+                    RandName = JZBot.RundomName(5)
+                    await bot.download_file((await bot.get_file(file_id)).file_path, f'{outpdir}/{file_id}-{RandName}.{file_format}')
+                    img = Image.open(f'{outpdir}/{file_id}-{RandName}.{file_format}')
+                    if len(cmds) < 2:
+                        img.save(f'{outpdir}/{file_id}-{RandName}.{outp_fmt}', format=outp_fmt)
+                        await JZBot.ReplyDocument(msg, InputFile(f'{outpdir}/{file_id}-{RandName}.{outp_fmt}'))
+                    else:
                         symbol = 'X' if 'X' in cmds[1] else '/' if '/' in cmds[1] else 'x'
                         resize = cmds[1].split(symbol)
-                        img2 = img.resize((int(resize[0]), int(resize[1])))
-                        img2.save(f'{outpdir}/{file_id}.{outp_fmt}', format=outp_fmt)
-                    else:
-                        img.save(f'{outpdir}/{file_id}.{outp_fmt}', format=outp_fmt)
-                    await JZBot.ReplyDocument(msg, InputFile(f'{outpdir}/{file_id}.{outp_fmt}'))
+                        if int(resize[0]) <= 4096 and int(resize[1]) <= 2160:
+                            img2 = img.resize((int(resize[0]), int(resize[1])))
+                            img2.save(f'{outpdir}/{file_id}-{RandName}.{outp_fmt}', format=outp_fmt)
+                            await JZBot.ReplyDocument(msg, InputFile(f'{outpdir}/{file_id}-{RandName}.{outp_fmt}'))
+                        else:
+                            await JZBot.ReplyMsg(msg, convert_text('text_3'))
                 except:
                     await JZBot.ReplyMsg(msg, convert_text('text_2'))
             else:
