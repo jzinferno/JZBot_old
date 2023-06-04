@@ -1,6 +1,5 @@
-from main import dp, GetBotLang, GetChatStatus
+from JZBot import dp, GetBotLang, GetChatStatus, ReplyMsg
 from gpytranslate import Translator
-from JZBot import JZBot
 import aiofiles
 
 def translate_text(text):
@@ -35,14 +34,14 @@ async def main_translate(msg):
         else:
             text = ' '.join(msg.text.split()[1:])
         if text == '':
-            await JZBot.ReplyMsg(msg, translate_text('text_1'))
+            await ReplyMsg(msg, translate_text('text_1'))
         else:
             try:
                 translator = Translator()
                 result = await translator.translate(text, targetlang=GetBotLang())
-                await JZBot.ReplyMsg(msg, result.text)
+                await ReplyMsg(msg, result.text)
             except:
-                await JZBot.ReplyMsg(msg, translate_text('text_2'))
+                await ReplyMsg(msg, translate_text('text_2'))
 
 @dp.message_handler(commands=['lang'])
 async def main_lang(msg):
@@ -52,10 +51,10 @@ async def main_lang(msg):
         else:
             text = ' '.join(msg.text.split()[1:])
         if text == '':
-            await JZBot.ReplyMsg(msg, translate_text('text_1'))
+            await ReplyMsg(msg, translate_text('text_1'))
         else:
             try:
                 translator = Translator()
-                await JZBot.ReplyMsg(msg, await translator.detect(text))
+                await ReplyMsg(msg, await translator.detect(text))
             except:
-                await JZBot.ReplyMsg(msg, translate_text('text_3'))
+                await ReplyMsg(msg, translate_text('text_3'))

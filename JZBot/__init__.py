@@ -1,1 +1,4 @@
-from JZBot.JZBot import JZBot
+from .config import *
+from .connect import *
+from .core import *
+from .version import *

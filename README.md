@@ -1,19 +1,19 @@
 ### Instalation:
 
 ```bash
-git clone --depth=1 https://github.com/jzinferno/JZBot.git
-cd JZBot && ./main.py
+git clone --depth=1 https://github.com/jzinferno/JZBot.git && cd JZBot
+pip3 install -r requirements.txt --upgrade
+python3 ./main.py
 ```
 
 ### Module template
 
 ```python
-from JZBot import JZBot
-from main import dp
+from JZBot import dp, ReplyMsg
 
 @dp.message_handler(commands=['hello'])
 async def main_hello(msg):
-    await JZBot.ReplyMsg(msg, 'Hello World!')
+    await ReplyMsg(msg, 'Hello World!')
 ```
 
 ### config.json
@@ -22,6 +22,10 @@ async def main_hello(msg):
 {
   "bot_token": "0000000000:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "openai_key": "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "lang": "en"
+  "lang": "en",
+  "chats": {
+    "0000000000": 1,
+    "9999999999": 1
+  }
 }
 ```
