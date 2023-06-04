@@ -6,13 +6,16 @@ from os import uname
 def sysinfo_text(text):
     full_text = {
         'ru': {
-            'text_1': 'Выберите информацию о системе:'
+            'text_1': 'Выберите информацию о системе:',
+            'text_2': 'Назад'
         },
         'uk': {
-            'text_1': 'Виберіть інформацію про систему:'
+            'text_1': 'Виберіть інформацію про систему:',
+            'text_2': 'Назад'
         },
         'en': {
-            'text_1': 'Select system information:'
+            'text_1': 'Select system information:',
+            'text_2': 'Back'
         }
     }
     if GetBotLang() in ['ru', 'uk']:
@@ -35,7 +38,7 @@ sysInfoButtons = JZBot.AddBtns(
 )
 
 sysInfoBack = JZBot.AddBtns(
-    JZBot.CreateBtn('Back', 'back')
+    JZBot.CreateBtn(sysinfo_text('text_2'), 'back')
 )
 
 @dp.message_handler(commands=['sysinfo'])

@@ -1,6 +1,5 @@
 from main import dp, bot, GetBotLang, GetChatStatus, outpdir
 from aiogram.types import InputFile
-from pydub import AudioSegment
 from JZBot import JZBot
 from PIL import Image
 
