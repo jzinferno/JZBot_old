@@ -76,7 +76,21 @@ async def EditBtns(cq, **args):
 def RundomName(count):
     return ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(count)])
 
-async def RunSysCmd(command):
-    process = await asyncio.create_subprocess_shell(command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+async def RunShellCmd(command, output=False, error=False):
+    process = await asyncio.create_subprocess_shell(
+        command,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE
+    )
+    if not output and not error:
+        await process.communicate()
+        return
+
     stdout, stderr = await process.communicate()
-    return stdout.decode().strip()
+
+    if output and error:
+        return stdout.decode().strip(), stderr.decode().strip()
+    elif output:
+        return stdout.decode().strip()
+    else:
+        return stderr.decode().strip()

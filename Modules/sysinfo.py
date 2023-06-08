@@ -1,4 +1,4 @@
-from JZBot import dp, GetChatStatus, GetBotLang, ReplyMsg, CreateBtn, AddBtns, ReplyMsg, EditBtns, RunSysCmd
+from JZBot import dp, GetChatStatus, GetBotLang, ReplyMsg, CreateBtn, AddBtns, ReplyMsg, EditBtns, RunShellCmd
 from aiogram import types
 from os import uname
 
@@ -54,18 +54,18 @@ async def process_callback_button(cq: types.CallbackQuery):
     elif cq.data == 'kernel':
         await EditBtns(cq, reply_markup=sysInfoBack, text='Kernel: ' + uname().release)
     elif cq.data == 'os':
-        await EditBtns(cq, reply_markup=sysInfoBack, text='OS: ' + (await RunSysCmd('neofetch distro')).split(': ')[-1])
+        await EditBtns(cq, reply_markup=sysInfoBack, text='OS: ' + (await RunShellCmd('neofetch distro', output=True)).split(': ')[-1])
     elif cq.data == 'uptime':
-        await EditBtns(cq, reply_markup=sysInfoBack, text='Uptime: ' + (await RunSysCmd('neofetch uptime')).split(': ')[-1])
+        await EditBtns(cq, reply_markup=sysInfoBack, text='Uptime: ' + (await RunShellCmd('neofetch uptime', output=True)).split(': ')[-1])
     elif cq.data == 'host':
-        await EditBtns(cq, reply_markup=sysInfoBack, text='Host: ' + (await RunSysCmd('neofetch model')).split(': ')[-1])
+        await EditBtns(cq, reply_markup=sysInfoBack, text='Host: ' + (await RunShellCmd('neofetch model', output=True)).split(': ')[-1])
     elif cq.data == 'memory':
-        await EditBtns(cq, reply_markup=sysInfoBack, text='Memory: ' + (await RunSysCmd('neofetch memory')).split(': ')[-1])
+        await EditBtns(cq, reply_markup=sysInfoBack, text='Memory: ' + (await RunShellCmd('neofetch memory', output=True)).split(': ')[-1])
     elif cq.data == 'cpu':
-        await EditBtns(cq, reply_markup=sysInfoBack, text='CPU: ' + (await RunSysCmd('neofetch cpu')).split(': ')[-1])
+        await EditBtns(cq, reply_markup=sysInfoBack, text='CPU: ' + (await RunShellCmd('neofetch cpu', output=True)).split(': ')[-1])
     elif cq.data == 'uname':
-        await EditBtns(cq, reply_markup=sysInfoBack, text=await RunSysCmd('uname -a'))
+        await EditBtns(cq, reply_markup=sysInfoBack, text=await RunShellCmd('uname -a', output=True))
     elif cq.data == 'neofetch':
-        await EditBtns(cq, reply_markup=sysInfoBack, text='\n'.join([l for l in (await RunSysCmd('neofetch --stdout')).split('\n') if ':' in l]))
+        await EditBtns(cq, reply_markup=sysInfoBack, text='\n'.join([l for l in (await RunShellCmd('neofetch --stdout', output=True)).split('\n') if ':' in l]))
     else:
         await EditBtns(cq, reply_markup=sysInfoButtons, text=sysinfo_text('text_1'))

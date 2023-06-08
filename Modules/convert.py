@@ -1,4 +1,4 @@
-from JZBot import dp, bot, GetBotLang, GetChatStatus, outpdir, ReplyDocument, RundomName
+from JZBot import dp, bot, GetBotLang, GetChatStatus, outpdir, ReplyMsg, ReplyDocument, RundomName
 from aiogram.types import InputFile
 from PIL import Image
 
