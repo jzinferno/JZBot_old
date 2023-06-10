@@ -1,5 +1,5 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-import asyncio, sqlite3, random, string
+import asyncio, random, string
 
 async def SendMsg(msg, *args1, **args2):
     try:

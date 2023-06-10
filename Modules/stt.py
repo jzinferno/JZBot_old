@@ -37,6 +37,9 @@ def stt(audio_file, lang):
         except:
             return stt_text('text_3')
 
+def ConvertAudio(InputFile, OutputFile, OutputFormat):
+    return AudioSegment.from_file(InputFile).export(OutputFile, format=OutputFormat)
+
 @dp.message_handler(commands=['stt'])
 async def main_stt(msg):
     if await GetChatStatus(msg) is not False:
@@ -54,9 +57,12 @@ async def main_stt(msg):
                         file_format = audio_msg.mime_type.split('/')[1]
                         cmd_text = msg.text.split()
                         lang = cmd_text[1] if len(cmd_text) >= 2 else GetBotLang()
-                        await DownloadFile(file_id, f'{outpdir}/{file_id}.{file_format}')
-                        AudioSegment.from_file(f'{outpdir}/{file_id}.{file_format}').export(f'{outpdir}/{file_id}.wav', format='wav')
-                        transcript = await asyncify(stt)(f'{outpdir}/{file_id}.wav', lang)
+                        FileName = f'{outpdir}/{file_id}-{RundomName(10)}'
+                        await DownloadFile(file_id, f'{FileName}.{file_format}')
+                        if file_format != 'wav':
+                            await asyncify(ConvertAudio)(f'{FileName}.{file_format}', f'{FileName}.wav', 'wav')
+                            file_format = 'wav'
+                        transcript = await asyncify(stt)(f'{FileName}.{file_format}', lang)
                         await ReplyMsg(msg, transcript)
                     except:
                         await ReplyMsg(msg, stt_text('text_3'))
