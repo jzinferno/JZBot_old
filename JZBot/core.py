@@ -1,5 +1,13 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-import asyncio, random, string
+from aiogram import Bot, Dispatcher, executor
+import asyncio, json, os, random, string, sys
+from pathlib import Path
+from glob import glob
+from os import getenv
+
+workdir = getenv('JZBOT_WORKDIR')
+configf = workdir + '/config.json'
+outpdir = workdir + '/.out'
 
 async def SendMsg(msg, *args1, **args2):
     try:
@@ -94,3 +102,49 @@ async def RunShellCmd(command, output=False, error=False):
         return stdout.decode().strip()
     else:
         return stderr.decode().strip()
+
+def SetConfig(key, value):
+    with open(configf, 'r+') as jfile:
+        data = json.load(jfile)
+        data[key] = value
+        jfile.seek(0)
+        json.dump(data, jfile, indent=2)
+        jfile.truncate()
+
+def GetConfig(key):
+    jfile = open(configf, 'r')
+    result = json.load(jfile)
+    jfile.close()
+    if not key in result:
+        SetConfig(key, '')
+        return None
+    return result[key]
+
+def GetBotLang():
+    return GetConfig('lang')
+
+def TextByLang(full_text, text):
+    if GetBotLang() in ['ru', 'uk']:
+        result = full_text[GetBotLang()][text]
+    else:
+        result = full_text['en'][text]
+    return result
+
+async def GetChatStatus(msg):
+    jfile = open(configf, 'r')
+    result = json.load(jfile)
+    jfile.close()
+    if str(msg.chat.id) in result['chats']:
+        return True
+    else:
+        await ReplyMsg(msg, ':(')
+    return False
+
+bot = Bot(token=GetConfig('bot_token'))
+dp = Dispatcher(bot)
+
+async def DownloadFile(file_id, file_path):
+    return await bot.download_file((await bot.get_file(file_id)).file_path, file_path)
+
+def RunJZBot():
+    executor.start_polling(dp)
