@@ -1,5 +1,7 @@
-from JZBot import dp, bot, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto, DownloadFile, TextByLang
+from JZBot import dp, bot, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto, DownloadFile, TextByLang, RundomName
+from Modules.VoiceRecognition.module import ConvertAudio
 from pydub import AudioSegment
+from asyncer import asyncify
 from os import environ
 import openai
 
@@ -102,11 +104,12 @@ async def main_wisper(msg):
                     try:
                         file_id = audio_msg.file_id
                         file_format = audio_msg.mime_type.split('/')[1]
-                        await DownloadFile(file_id, f'{outpdir}/{file_id}.{file_format}')
+                        FileName = f'{outpdir}/{file_id}-{RundomName(10)}'
+                        await DownloadFile(file_id, f'{FileName}.{file_format}')
                         if file_format == 'ogg':
-                            AudioSegment.from_file(f'{outpdir}/{file_id}.{file_format}').export(f'{outpdir}/{file_id}.wav', format='wav')
+                            await asyncify(ConvertAudio)(f'{FileName}.{file_format}', f'{FileName}.wav', 'wav')
                             file_format = 'wav'
-                        transcript = await openai.Audio.atranscribe('whisper-1', open(f'{outpdir}/{file_id}.{file_format}', 'rb'))
+                        transcript = await openai.Audio.atranscribe('whisper-1', open(f'{FileName}.{file_format}', 'rb'))
                         await ReplyMsg(msg, transcript.text.strip())
                     except:
                         await ReplyMsg(msg, openai_text('text_3'))
