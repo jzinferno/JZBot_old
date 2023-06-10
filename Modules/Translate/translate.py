@@ -24,16 +24,19 @@ def translate_text(text):
 @dp.message_handler(commands=['translate'])
 async def main_translate(msg):
     if await GetChatStatus(msg) is not False:
+        cmd = msg.text.split()
         if 'reply_to_message' in msg:
             text = msg.reply_to_message.text
+            lang = cmd[1] if len(cmd) >= 2 else GetBotLang()
         else:
-            text = ' '.join(msg.text.split()[1:])
+            text = ' '.join(cmd[1:])
+            lang = GetBotLang()
         if text == '':
             await ReplyMsg(msg, translate_text('text_1'))
         else:
             try:
                 translator = Translator()
-                result = await translator.translate(text, targetlang=GetBotLang())
+                result = await translator.translate(text, targetlang=lang)
                 await ReplyMsg(msg, result.text)
             except:
                 await ReplyMsg(msg, translate_text('text_2'))

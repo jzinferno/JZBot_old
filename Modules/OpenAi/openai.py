@@ -1,4 +1,4 @@
-from JZBot import dp, bot, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto, DownloadFile, TextByLang, RundomName
+from JZBot import dp, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto, DownloadFile, TextByLang, RundomName
 from Modules.VoiceRecognition.stt import ConvertAudio
 from pydub import AudioSegment
 from asyncer import asyncify
