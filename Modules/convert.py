@@ -1,9 +1,9 @@
-from JZBot import dp, bot, GetBotLang, GetChatStatus, outpdir, ReplyMsg, ReplyDocument, RundomName, DownloadFile
+from JZBot import dp, bot, GetBotLang, GetChatStatus, outpdir, ReplyMsg, ReplyDocument, RundomName, DownloadFile, TextByLang
 from aiogram.types import InputFile
 from PIL import Image
 
 def convert_text(text):
-    full_text = {
+    return TextByLang({
         'ru': {
             'text_1': 'Необходимо ответить на сообщение которое содержит изображение',
             'text_2': 'Не удалось отредактировать фото',
@@ -19,12 +19,7 @@ def convert_text(text):
             'text_2': 'Failed to edit photo',
             'text_3': 'Maximum available resolution 4K 4096x2160'
         }
-    }
-    if GetBotLang() in ['ru', 'uk']:
-        result = full_text[GetBotLang()][text]
-    else:
-        result = full_text['en'][text]
-    return result
+    }, text)
 
 @dp.message_handler(commands=['convert'])
 async def main_convert(msg):

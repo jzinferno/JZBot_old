@@ -1,11 +1,11 @@
-from JZBot import dp, bot, GetChatStatus, GetBotLang, outpdir, ReplyMsg, RundomName, ReplyVoice, RunShellCmd, DownloadFile
+from JZBot import dp, bot, GetChatStatus, GetBotLang, outpdir, ReplyMsg, RundomName, ReplyVoice, RunShellCmd, DownloadFile, TextByLang
 from gpytranslate import Translator
 import speech_recognition as sr
 from pydub import AudioSegment
 from asyncer import asyncify
 
 def stt_text(text):
-    full_text = {
+    return TextByLang({
         'ru': {
             'text_1': 'Нужно ответить на сообщение которое содержит аудиофайл',
             'text_2': 'Размер аудиофайла не должен превышать 5мб',
@@ -21,12 +21,7 @@ def stt_text(text):
             'text_2': 'The size of the audio file must not exceed 5MB',
             'text_3': 'Failed to convert audio to text'
         }
-    }
-    if GetBotLang() in ['ru', 'uk']:
-        result = full_text[GetBotLang()][text]
-    else:
-        result = full_text['en'][text]
-    return result
+    }, text)
 
 def stt(audio_file, lang):
     r = sr.Recognizer()

@@ -6,7 +6,7 @@ workdir = realpath(dirname(abspath(__file__)) + '/..')
 configf = workdir + '/config.json'
 outpdir = workdir + '/.out'
 
-def SetConfig(key: str, value: str):
+def SetConfig(key, value):
     with open(configf, 'r+') as jfile:
         data = json.load(jfile)
         data[key] = value
@@ -25,6 +25,13 @@ def GetConfig(key):
 
 def GetBotLang():
     return GetConfig('lang')
+
+def TextByLang(full_text, text):
+    if GetBotLang() in ['ru', 'uk']:
+        result = full_text[GetBotLang()][text]
+    else:
+        result = full_text['en'][text]
+    return result
 
 async def GetChatStatus(msg):
     jfile = open(configf, 'r')

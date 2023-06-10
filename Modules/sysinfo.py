@@ -1,9 +1,9 @@
-from JZBot import dp, GetChatStatus, GetBotLang, ReplyMsg, CreateBtn, AddBtns, ReplyMsg, EditBtns, RunShellCmd
+from JZBot import dp, GetChatStatus, GetBotLang, ReplyMsg, CreateBtn, AddBtns, ReplyMsg, EditBtns, RunShellCmd, TextByLang
 from aiogram import types
 from os import uname
 
 def sysinfo_text(text):
-    full_text = {
+    return TextByLang({
         'ru': {
             'text_1': 'Выберите информацию о системе:',
             'text_2': 'Назад'
@@ -16,12 +16,7 @@ def sysinfo_text(text):
             'text_1': 'Select system information:',
             'text_2': 'Back'
         }
-    }
-    if GetBotLang() in ['ru', 'uk']:
-        result = full_text[GetBotLang()][text]
-    else:
-        result = full_text['en'][text]
-    return result
+    }, text)
 
 sysInfoButtons = AddBtns(
     CreateBtn('Arch', 'arch'),

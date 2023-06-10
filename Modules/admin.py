@@ -1,8 +1,8 @@
-from JZBot import dp, GetBotLang, GetChatStatus, SetConfig, CreateBtn, AddBtns, ReplyMsg, EditBtns
+from JZBot import dp, GetBotLang, GetChatStatus, SetConfig, CreateBtn, AddBtns, ReplyMsg, EditBtns, TextByLang
 from aiogram import types
 
 def admin_text(text):
-    full_text = {
+    return TextByLang({
         'ru': {
             'text_1': 'Выберите язык или ввойдите',
             'text_2': 'Выберите язык, сейчас выбран: ',
@@ -21,12 +21,7 @@ def admin_text(text):
             'text_3': 'Bot language',
             'text_4': 'Settings'
         }
-    }
-    if GetBotLang() in ['ru', 'uk']:
-        result = full_text[GetBotLang()][text]
-    else:
-        result = full_text['en'][text]
-    return result
+    }, text)
 
 def settingsBtns():
     return AddBtns(

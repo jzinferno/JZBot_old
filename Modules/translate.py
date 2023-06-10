@@ -1,9 +1,9 @@
-from JZBot import dp, GetBotLang, GetChatStatus, ReplyMsg
+from JZBot import dp, GetBotLang, GetChatStatus, ReplyMsg, TextByLang
 from gpytranslate import Translator
 import aiofiles
 
 def translate_text(text):
-    full_text = {
+    return TextByLang({
         'ru': {
             'text_1': 'Нужно ответить на сообщение или ввести текст',
             'text_2': 'Не удалось перевести текст',
@@ -19,12 +19,7 @@ def translate_text(text):
             'text_2': 'Failed to translate text',
             'text_3': 'Failed to determine text language'
         }
-    }
-    if GetBotLang() in ['ru', 'uk']:
-        result = full_text[GetBotLang()][text]
-    else:
-        result = full_text['en'][text]
-    return result
+    }, text)
 
 @dp.message_handler(commands=['translate'])
 async def main_translate(msg):

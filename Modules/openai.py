@@ -1,4 +1,4 @@
-from JZBot import dp, bot, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto, DownloadFile
+from JZBot import dp, bot, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto, DownloadFile, TextByLang
 from pydub import AudioSegment
 from os import environ
 import openai
@@ -6,7 +6,7 @@ import openai
 openai.api_key = GetConfig('openai_key')
 
 def openai_text(text):
-    full_text = {
+    return TextByLang({
         'ru': {
             'text_1': 'Ваш запрос не может быть более 1000 символов',
             'text_2': 'Вы забыли ввести текст запроса',
@@ -28,12 +28,7 @@ def openai_text(text):
             'text_4': 'Reply to a message that contains an audio file',
             'text_5': 'The size of the audio file must not exceed 1MB'
         }
-    }
-    if GetBotLang() in ['ru', 'uk']:
-        result = full_text[GetBotLang()][text]
-    else:
-        result = full_text['en'][text]
-    return result
+    }, text)
 
 @dp.message_handler(commands=['chat'])
 async def main_chat(msg):

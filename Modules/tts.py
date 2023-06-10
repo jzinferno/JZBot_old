@@ -1,8 +1,8 @@
-from JZBot import dp, GetChatStatus, GetBotLang, outpdir, ReplyMsg, RundomName, ReplyVoice, RunShellCmd
+from JZBot import dp, GetChatStatus, GetBotLang, outpdir, ReplyMsg, RundomName, ReplyVoice, RunShellCmd, TextByLang
 from gpytranslate import Translator
 
 def tts_text(text):
-    full_text = {
+    return TextByLang({
         'ru': {
             'text_1': 'Нужно ответить на сообщение или ввести текст',
             'text_2': 'Не удалось озвучить текст'
@@ -15,12 +15,7 @@ def tts_text(text):
             'text_1': 'Reply to a message or enter text',
             'text_2': 'Failed to speak text'
         }
-    }
-    if GetBotLang() in ['ru', 'uk']:
-        result = full_text[GetBotLang()][text]
-    else:
-        result = full_text['en'][text]
-    return result
+    }, text)
 
 @dp.message_handler(commands=['tts'])
 async def main_tts(msg):
