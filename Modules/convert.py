@@ -1,4 +1,4 @@
-from JZBot import dp, bot, GetBotLang, GetChatStatus, outpdir, ReplyMsg, ReplyDocument, RundomName
+from JZBot import dp, bot, GetBotLang, GetChatStatus, outpdir, ReplyMsg, ReplyDocument, RundomName, DownloadFile
 from aiogram.types import InputFile
 from PIL import Image
 
@@ -50,7 +50,7 @@ async def main_convert(msg):
                     file_id = photo_msg[-1].file_id if 'photo' in reply_msg else photo_msg.file_id
                     file_format = 'jpg' if 'photo' in reply_msg else photo_msg.mime_type.split('/')[1]
                     RandName = RundomName(5)
-                    await bot.download_file((await bot.get_file(file_id)).file_path, f'{outpdir}/{file_id}-{RandName}.{file_format}')
+                    await DownloadFile(file_id, f'{outpdir}/{file_id}-{RandName}.{file_format}')
                     img = Image.open(f'{outpdir}/{file_id}-{RandName}.{file_format}')
                     if len(cmds) < 2:
                         img.save(f'{outpdir}/{file_id}-{RandName}.{outp_fmt}', format=outp_fmt)

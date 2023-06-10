@@ -7,6 +7,9 @@ import sys, os
 bot = Bot(token=GetConfig('bot_token'))
 dp = Dispatcher(bot)
 
+async def DownloadFile(file_id, file_path):
+    return await bot.download_file((await bot.get_file(file_id)).file_path, file_path)
+
 def RunJZBot():
     os.makedirs(outpdir, exist_ok=True)
     sys.path.append(workdir + '/Modules')

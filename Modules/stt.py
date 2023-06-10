@@ -1,4 +1,4 @@
-from JZBot import dp, bot, GetChatStatus, GetBotLang, outpdir, ReplyMsg, RundomName, ReplyVoice, RunShellCmd
+from JZBot import dp, bot, GetChatStatus, GetBotLang, outpdir, ReplyMsg, RundomName, ReplyVoice, RunShellCmd, DownloadFile
 from gpytranslate import Translator
 import speech_recognition as sr
 from pydub import AudioSegment
@@ -54,7 +54,7 @@ async def main_stt(msg):
                         file_format = audio_msg.mime_type.split('/')[1]
                         cmd_text = msg.text.split()
                         lang = cmd_text[1] if len(cmd_text) >= 2 else GetBotLang()
-                        await bot.download_file((await bot.get_file(file_id)).file_path, f'{outpdir}/{file_id}.{file_format}')
+                        await DownloadFile(file_id, f'{outpdir}/{file_id}.{file_format}')
                         AudioSegment.from_file(f'{outpdir}/{file_id}.{file_format}').export(f'{outpdir}/{file_id}.wav', format='wav')
                         transcript = await asyncify(stt)(f'{outpdir}/{file_id}.wav', lang)
                         await ReplyMsg(msg, transcript)

@@ -1,4 +1,4 @@
-from JZBot import dp, bot, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto
+from JZBot import dp, bot, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto, DownloadFile
 from pydub import AudioSegment
 from os import environ
 import openai
@@ -107,7 +107,7 @@ async def main_wisper(msg):
                     try:
                         file_id = audio_msg.file_id
                         file_format = audio_msg.mime_type.split('/')[1]
-                        await bot.download_file((await bot.get_file(file_id)).file_path, f'{outpdir}/{file_id}.{file_format}')
+                        await DownloadFile(file_id, f'{outpdir}/{file_id}.{file_format}')
                         if file_format == 'ogg':
                             AudioSegment.from_file(f'{outpdir}/{file_id}.{file_format}').export(f'{outpdir}/{file_id}.wav', format='wav')
                             file_format = 'wav'
