@@ -2,7 +2,7 @@ from os.path import exists
 import subprocess
 
 def sysinfo_distro():
-    if exists('/system/build.prop') and exists('/vendor/build.prop'):
+    if exists('/system') and exists('/vendor') and exists('/data'):
         distro_name = 'Android ' + subprocess.run(['getprop', 'ro.build.version.release'], capture_output=True).stdout.decode('utf-8')
     elif exists('/etc/os-release'):
         with open('/etc/os-release') as f:
