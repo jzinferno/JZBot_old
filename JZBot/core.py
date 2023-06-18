@@ -147,4 +147,4 @@ async def DownloadFile(file_id, file_path):
     return await bot.download_file((await bot.get_file(file_id)).file_path, file_path)
 
 def RunJZBot():
-    executor.start_polling(dp)
+    executor.start_polling(dp, skip_updates=True)
