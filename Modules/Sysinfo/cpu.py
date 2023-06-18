@@ -14,6 +14,9 @@ def sysinfo_cpu():
                 result += ' '
             result += ' '.join(line.split()[2:])
             break
+    
+    if len(result) <= 1:
+        result = 'Unknown'
 
     cores = 0
     for line in inform:
