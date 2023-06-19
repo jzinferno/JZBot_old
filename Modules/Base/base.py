@@ -1,4 +1,4 @@
-from JZBot import dp, GetChatStatus, ReplyMsg, version
+from JZBot import dp, version, GetChatStatus, ReplyMsg
 
 @dp.message_handler(commands=['id'])
 async def main_id(msg):

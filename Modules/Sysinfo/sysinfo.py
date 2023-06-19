@@ -22,28 +22,28 @@ def sysinfo_text(text):
         }
     }, text)
 
-sysInfoButtons = AddBtns(
-    CreateBtn('Arch', 'arch'),
-    CreateBtn('Hostname', 'hostname'),
-    CreateBtn('Kernel', 'kernel'),
-    CreateBtn('OS', 'os'),
-    CreateBtn('Uptime', 'uptime'),
-    CreateBtn('Disk', 'disk'),
-    CreateBtn('RAM', 'ram'),
-    CreateBtn('Swap', 'swap'),
-    CreateBtn('CPU', 'cpu'),
-    CreateBtn('Uname', 'uname'),
-    CreateBtn('Neofetch', 'neofetch')
-)
+def sysInfoButtons():
+    return AddBtns(
+        CreateBtn('Arch', 'arch'),
+        CreateBtn('Hostname', 'hostname'),
+        CreateBtn('Kernel', 'kernel'),
+        CreateBtn('OS', 'os'),
+        CreateBtn('Uptime', 'uptime'),
+        CreateBtn('Disk', 'disk'),
+        CreateBtn('RAM', 'ram'),
+        CreateBtn('Swap', 'swap'),
+        CreateBtn('CPU', 'cpu'),
+        CreateBtn('Uname', 'uname'),
+        CreateBtn('Neofetch', 'neofetch')
+    )
 
 def sysInfoBack(): 
-    return AddBtns(CreateBtn(sysinfo_text('text_2'), 'back')
-)
+    return AddBtns(CreateBtn(sysinfo_text('text_2'), 'back'))
 
 @dp.message_handler(commands=['sysinfo'])
 async def main_sysinfo(msg: types.Message):
     if await GetChatStatus(msg) is not False:
-        await ReplyMsg(msg, reply_markup=sysInfoButtons, text=sysinfo_text('text_1'))
+        await ReplyMsg(msg, reply_markup=sysInfoButtons(), text=sysinfo_text('text_1'))
 
 @dp.callback_query_handler(lambda c: c.data in ['hostname', 'kernel', 'os', 'arch', 'uptime', 'disk', 'ram', 'swap', 'cpu', 'uname', 'neofetch', 'back'])
 async def process_callback_button(cq: types.CallbackQuery):
@@ -68,6 +68,6 @@ async def process_callback_button(cq: types.CallbackQuery):
     elif cq.data == 'uname':
         await EditBtns(cq, reply_markup=sysInfoBack(), text=await RunShellCmd('uname -a', output=True))
     elif cq.data == 'neofetch':
-        await EditBtns(cq, reply_markup=sysInfoBack(), text='\n'.join([l for l in (await RunShellCmd('neofetch --stdout', output=True)).split('\n') if ':' in l]))
+        await EditBtns(cq, reply_markup=sysInfoBack(), text='\n'.join([line for line in (await RunShellCmd('neofetch --stdout', output=True)).split('\n') if ':' in line]))
     else:
-        await EditBtns(cq, reply_markup=sysInfoButtons, text=sysinfo_text('text_1'))
+        await EditBtns(cq, reply_markup=sysInfoButtons(), text=sysinfo_text('text_1'))
