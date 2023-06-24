@@ -4,3 +4,7 @@ gpytranslate>=1.5.1
 openai>=0.27.7
 tabulate>=0.9.0
 Pillow>=9.5.0
+SpeechRecognition>=3.10.0
+pydub>=0.25.1
+asyncer>=0.0.2
+uptime>=3.0.1

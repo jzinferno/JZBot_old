@@ -1,9 +1,12 @@
 ### Instalation:
 
 ```bash
-git clone --depth=1 https://github.com/jzinferno/JZBot.git && cd JZBot
-pip3 install -r requirements.txt --upgrade
-python3 ./main.py
+git clone --depth=1 https://github.com/jzinferno/JZBot.git
+cd JZBot
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+./main.py
 ```
 
 ### Module template
