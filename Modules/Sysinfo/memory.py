@@ -1,4 +1,3 @@
-from Modules.Sysinfo.distro import sysinfo_distro
 import shutil
 
 def getMemInfoValue(string):
@@ -21,6 +20,5 @@ def sysinfo_swap():
     return f'{used}MiB / {total}MiB ({int(used / total * 100)})%'
 
 def sysinfo_disk():
-    root_path = '/data' if sysinfo_distro().startswith('Android') else '/'
-    total, used, free = shutil.disk_usage(root_path)
+    total, used, free = shutil.disk_usage('/')
     return f'{used // 1073741824}GiB / {total // 1073741824}GiB ({int(used / total * 100)}%)'
