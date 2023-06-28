@@ -20,5 +20,5 @@ def sysinfo_swap():
     return f'{used}MiB / {total}MiB ({int(used / total * 100)})%'
 
 def sysinfo_disk():
-    total, used, free = shutil.disk_usage('/')
+    total, used, free = shutil.disk_usage('.')
     return f'{used // 1073741824}GiB / {total // 1073741824}GiB ({int(used / total * 100)}%)'
