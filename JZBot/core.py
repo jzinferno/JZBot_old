@@ -21,6 +21,12 @@ async def SendAudio(msg, *args1, **args2):
     except:
         print('JZBot: error send audio')
 
+async def SendVideo(msg, *args1, **args2):
+    try:
+        await msg.answer_video(*args1, **args2)
+    except:
+        print('JZBot: error send video')
+
 async def SendDocument(msg, *args1, **args2):
     try:
         await msg.answer_document(*args1, **args2)
@@ -50,6 +56,12 @@ async def ReplyAudio(msg, *args1, **args2):
         await msg.reply_audio(*args1, **args2)
     except:
         await SendAudio(msg, *args1, **args2)
+
+async def ReplyVideo(msg, *args1, **args2):
+    try:
+        await msg.reply_video(*args1, **args2)
+    except:
+        await SendVideo(msg, *args1, **args2)
 
 async def ReplyDocument(msg, *args1, **args2):
     try:
