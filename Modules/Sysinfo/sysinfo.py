@@ -6,21 +6,21 @@ from .cpu import sysinfo_cpu
 from aiogram import types
 from os import uname
 
-def sysinfo_text(text):
+def sysinfo_text(number):
     return TextByLang({
-        'ru': {
-            'text_1': 'Выберите информацию о системе:',
-            'text_2': 'Назад'
-        },
-        'uk': {
-            'text_1': 'Виберіть інформацію про систему:',
-            'text_2': 'Назад'
-        },
-        'en': {
-            'text_1': 'Select system information:',
-            'text_2': 'Back'
-        }
-    }, text)
+        'ru': [
+            'Выберите информацию о системе:',
+            'Назад'
+        ],
+        'uk': [
+            'Виберіть інформацію про систему:',
+            'Назад'
+        ],
+        'en': [
+            'Select system information:',
+            'Back'
+        ]
+    }, number)
 
 def sysInfoButtons():
     return AddBtns(
@@ -38,12 +38,12 @@ def sysInfoButtons():
     )
 
 def sysInfoBack(): 
-    return AddBtns(CreateBtn(sysinfo_text('text_2'), 'back'))
+    return AddBtns(CreateBtn(sysinfo_text(1), 'back'))
 
 @dp.message_handler(commands=['sysinfo'])
 async def main_sysinfo(msg: types.Message):
     if await GetChatStatus(msg) is not False:
-        await ReplyMsg(msg, reply_markup=sysInfoButtons(), text=sysinfo_text('text_1'))
+        await ReplyMsg(msg, reply_markup=sysInfoButtons(), text=sysinfo_text(0))
 
 @dp.callback_query_handler(lambda c: c.data in ['hostname', 'kernel', 'os', 'arch', 'uptime', 'disk', 'ram', 'swap', 'cpu', 'uname', 'neofetch', 'back'])
 async def process_callback_button(cq: types.CallbackQuery):
@@ -70,4 +70,4 @@ async def process_callback_button(cq: types.CallbackQuery):
     elif cq.data == 'neofetch':
         await EditBtns(cq, reply_markup=sysInfoBack(), text='\n'.join([line for line in (await RunShellCmd('neofetch --stdout', output=True)).split('\n') if ':' in line]))
     else:
-        await EditBtns(cq, reply_markup=sysInfoButtons(), text=sysinfo_text('text_1'))
+        await EditBtns(cq, reply_markup=sysInfoButtons(), text=sysinfo_text(0))

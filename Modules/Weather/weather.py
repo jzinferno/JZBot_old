@@ -3,36 +3,36 @@ from httpx import AsyncClient
 
 openweather_key = GetConfig('openweather_key')
 
-def weather_text(text):
+def weather_text(number):
     return TextByLang({
-        'ru': {
-            'text_1': 'Погода в городе',
-            'text_2': 'Температура',
-            'text_3': 'Атмосферное давление',
-            'text_4': 'Влажность воздуха',
-            'text_5': 'Скорость ветра',
-            'text_6': 'Город не найден',
-            'text_7': 'Не удалось выполнить запрос',
-        },
-        'uk': {
-            'text_1': 'Погода в місті',
-            'text_2': 'Температура',
-            'text_3': 'Атмосферний тиск',
-            'text_4': 'Вологість повітря',
-            'text_5': 'Швидкість вітру',
-            'text_6': 'Місто не знайдено',
-            'text_7': 'Не вдалося виконати запит',
-        },
-        'en': {
-            'text_1': 'Weather in',
-            'text_2': 'Temperature',
-            'text_3': 'Atmosphere pressure',
-            'text_4': 'Air humidity',
-            'text_5': 'Wind speed',
-            'text_6': 'City not found',
-            'text_7': 'Failed to complete request',
-        }
-    }, text)
+        'ru': [
+            'Погода в городе',
+            'Температура',
+            'Атмосферное давление',
+            'Влажность воздуха',
+            'Скорость ветра',
+            'Город не найден',
+            'Не удалось выполнить запрос'
+        ],
+        'uk': [
+            'Погода в місті',
+            'Температура',
+            'Атмосферний тиск',
+            'Вологість повітря',
+            'Швидкість вітру',
+            'Місто не знайдено',
+            'Не вдалося виконати запит'
+        ],
+        'en': [
+            'Weather in',
+            'Temperature',
+            'Atmosphere pressure',
+            'Air humidity',
+            'Wind speed',
+            'City not found',
+            'Failed to complete request'
+        ]
+    }, number)
 
 code_to_smile = {
     'Clear': '\U00002600',
@@ -49,13 +49,13 @@ async def get_weather(citi):
     async with AsyncClient() as client:
         x = (await client.get('http://api.openweathermap.org/data/2.5/weather?appid=' + openweather_key + '&q=' + citi + '&units=metric&lang=en')).json()
         if x['cod'] != '404':
-            result += f"{weather_text('text_1')}: {x['sys']['country']} {x['name']}\n"
-            result += f"{weather_text('text_2')}: {x['main']['temp']}°C {code_to_smile[x['weather'][0]['main']]}\n"
-            result += f"{weather_text('text_3')}: {x['main']['pressure']} мм рт. ст.\n"
-            result += f"{weather_text('text_4')}: {x['main']['humidity']} [г/м³]\n"
-            result += f"{weather_text('text_5')}: {x['wind']['speed']} м/с"
+            result += f"{weather_text(0)}: {x['sys']['country']} {x['name']}\n"
+            result += f"{weather_text(1)}: {x['main']['temp']}°C {code_to_smile[x['weather'][0]['main']]}\n"
+            result += f"{weather_text(2)}: {x['main']['pressure']} мм рт. ст.\n"
+            result += f"{weather_text(3)}: {x['main']['humidity']} [г/м³]\n"
+            result += f"{weather_text(4)}: {x['wind']['speed']} м/с"
         else:
-            result += weather_text('text_6')
+            result += weather_text(5)
     return result
 
 @dp.message_handler(commands=['weather'])
@@ -64,4 +64,4 @@ async def main_weather(msg):
         try:
             await ReplyMsg(msg, await get_weather(' '.join(msg.text.split()[1:])))
         except:
-            await ReplyMsg(msg, weather_text('text_7'))
+            await ReplyMsg(msg, weather_text(6))

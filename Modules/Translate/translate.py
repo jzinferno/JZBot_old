@@ -2,24 +2,24 @@ from JZBot import dp, GetBotLang, GetChatStatus, ReplyMsg, TextByLang
 from gpytranslate import Translator
 import aiofiles
 
-def translate_text(text):
+def translate_text(number):
     return TextByLang({
-        'ru': {
-            'text_1': 'Нужно ответить на сообщение или ввести текст',
-            'text_2': 'Не удалось перевести текст',
-            'text_3': 'Не удалось определить язык текста'
-        },
-        'uk': {
-            'text_1': 'Потрібно відповісти на повідомлення чи ввести текст',
-            'text_2': 'Не вдалося перекласти текст',
-            'text_3': 'Не вдалося визначити мову тексту'
-        },
-        'en': {
-            'text_1': 'Reply to a message or enter text',
-            'text_2': 'Failed to translate text',
-            'text_3': 'Failed to determine text language'
-        }
-    }, text)
+        'ru': [
+            'Нужно ответить на сообщение или ввести текст',
+            'Не удалось перевести текст',
+            'Не удалось определить язык текста'
+        ],
+        'uk': [
+            'Потрібно відповісти на повідомлення чи ввести текст',
+            'Не вдалося перекласти текст',
+            'Не вдалося визначити мову тексту'
+        ],
+        'en': [
+            'Reply to a message or enter text',
+            'Failed to translate text',
+            'Failed to determine text language'
+        ]
+    }, number)
 
 @dp.message_handler(commands=['translate'])
 async def main_translate(msg):
@@ -32,14 +32,14 @@ async def main_translate(msg):
             text = ' '.join(cmd[1:])
             lang = GetBotLang()
         if text == '':
-            await ReplyMsg(msg, translate_text('text_1'))
+            await ReplyMsg(msg, translate_text(0))
         else:
             try:
                 translator = Translator()
                 result = await translator.translate(text, targetlang=lang)
                 await ReplyMsg(msg, result.text)
             except:
-                await ReplyMsg(msg, translate_text('text_2'))
+                await ReplyMsg(msg, translate_text(1))
 
 @dp.message_handler(commands=['lang'])
 async def main_lang(msg):
@@ -49,10 +49,10 @@ async def main_lang(msg):
         else:
             text = ' '.join(msg.text.split()[1:])
         if text == '':
-            await ReplyMsg(msg, translate_text('text_1'))
+            await ReplyMsg(msg, translate_text(0))
         else:
             try:
                 translator = Translator()
                 await ReplyMsg(msg, await translator.detect(text))
             except:
-                await ReplyMsg(msg, translate_text('text_3'))
+                await ReplyMsg(msg, translate_text(2))

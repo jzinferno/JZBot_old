@@ -2,30 +2,30 @@ from JZBot import dp, bot, GetBotLang, GetChatStatus, outpdir, ReplyMsg, ReplyDo
 from aiogram.types import InputFile
 from PIL import Image
 
-def convert_text(text):
+def convert_text(number):
     return TextByLang({
-        'ru': {
-            'text_1': 'Необходимо ответить на сообщение которое содержит изображение',
-            'text_2': 'Не удалось отредактировать фото',
-            'text_3': 'Максимально доступное разрешение 4K 4096x2160'
-        },
-        'uk': {
-            'text_1': 'Необхідно відповісти на повідомлення, яке містить зображення',
-            'text_2': 'Не вдалося відредагувати фото',
-            'text_3': 'Максимальна доступна роздільна здатність 4K 4096x2160'
-        },
-        'en': {
-            'text_1': 'Reply to a message that contains an image',
-            'text_2': 'Failed to edit photo',
-            'text_3': 'Maximum available resolution 4K 4096x2160'
-        }
-    }, text)
+        'ru': [
+            'Необходимо ответить на сообщение которое содержит изображение',
+            'Не удалось отредактировать фото',
+            'Максимально доступное разрешение 4K 4096x2160'
+        ],
+        'uk': [
+            'Необхідно відповісти на повідомлення, яке містить зображення',
+            'Не вдалося відредагувати фото',
+            'Максимальна доступна роздільна здатність 4K 4096x2160'
+        ],
+        'en': [
+            'Reply to a message that contains an image',
+            'Failed to edit photo',
+            'Maximum available resolution 4K 4096x2160'
+        ]
+    }, number)
 
 @dp.message_handler(commands=['convert'])
 async def main_convert(msg):
     if await GetChatStatus(msg) is not False:
         if 'reply_to_message' not in msg:
-            await ReplyMsg(msg, convert_text('text_1'))
+            await ReplyMsg(msg, convert_text(0))
         else:
             reply_msg = msg.reply_to_message
             cmds = msg.text.split()[1:]
@@ -58,8 +58,8 @@ async def main_convert(msg):
                             img2.save(f'{outpdir}/{file_id}-{RandName}.{outp_fmt}', format=outp_fmt)
                             await ReplyDocument(msg, InputFile(f'{outpdir}/{file_id}-{RandName}.{outp_fmt}'))
                         else:
-                            await ReplyMsg(msg, convert_text('text_3'))
+                            await ReplyMsg(msg, convert_text(2))
                 except:
-                    await ReplyMsg(msg, convert_text('text_2'))
+                    await ReplyMsg(msg, convert_text(1))
             else:
-                await ReplyMsg(msg, convert_text('text_1'))
+                await ReplyMsg(msg, convert_text(0))

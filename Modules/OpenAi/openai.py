@@ -7,39 +7,39 @@ import openai
 
 openai.api_key = GetConfig('openai_key')
 
-def openai_text(text):
+def openai_text(number):
     return TextByLang({
-        'ru': {
-            'text_1': 'Ваш запрос не может быть более 1000 символов',
-            'text_2': 'Вы забыли ввести текст запроса',
-            'text_3': 'Не удалось выполнить запрос OpenAi',
-            'text_4': 'Нужно ответить на сообщение которое содержит аудиофайл',
-            'text_5': 'Размер аудиофайла не должен превышать 1мб'
-        },
-        'uk': {
-            'text_1': 'Ваш запит не може бути більше ніж 1000 символів',
-            'text_2': 'Ви забули ввести текст запиту',
-            'text_3': 'Не вдалося виконати запит OpenAi',
-            'text_4': 'Потрібно відповісти на повідомлення, яке містить аудіофайл',
-            'text_5': 'Розмір аудіофайлу не повинен перевищувати 1мб'
-        },
-        'en': {
-            'text_1': 'Your request cannot be more than 1000 characters',
-            'text_2': 'You forgot to enter the request text',
-            'text_3': 'Failed to execute OpenAi request',
-            'text_4': 'Reply to a message that contains an audio file',
-            'text_5': 'The size of the audio file must not exceed 1MB'
-        }
-    }, text)
+        'ru': [
+            'Ваш запрос не может быть более 1000 символов',
+            'Вы забыли ввести текст запроса',
+            'Не удалось выполнить запрос OpenAi',
+            'Нужно ответить на сообщение которое содержит аудиофайл',
+            'Размер аудиофайла не должен превышать 1мб'
+        ],
+        'uk': [
+            'Ваш запит не може бути більше ніж 1000 символів',
+            'Ви забули ввести текст запиту',
+            'Не вдалося виконати запит OpenAi',
+            'Потрібно відповісти на повідомлення, яке містить аудіофайл',
+            'Розмір аудіофайлу не повинен перевищувати 1мб'
+        ],
+        'en': [
+            'Your request cannot be more than 1000 characters',
+            'You forgot to enter the request text',
+            'Failed to execute OpenAi request',
+            'Reply to a message that contains an audio file',
+            'The size of the audio file must not exceed 1MB'
+        ]
+    }, number)
 
 @dp.message_handler(commands=['chat'])
 async def main_chat(msg):
     if await GetChatStatus(msg) is not False:
         if len(msg.text) >= 1001:
-            await ReplyMsg(msg, openai_text('text_1'))
+            await ReplyMsg(msg, openai_text(0))
         else:
             if msg.text.find(' ') == -1:
-                await ReplyMsg(msg, openai_text('text_2'))
+                await ReplyMsg(msg, openai_text(1))
             else:
                 try:
                     response = await openai.Completion.acreate(
@@ -50,16 +50,16 @@ async def main_chat(msg):
                     )
                     await ReplyMsg(msg, response.choices[0].text.strip())
                 except:
-                    await ReplyMsg(msg, openai_text('text_3'))
+                    await ReplyMsg(msg, openai_text(2))
 
 @dp.message_handler(commands=['gpt'])
 async def main_gpt(msg):
     if await GetChatStatus(msg) is not False:
         if len(msg.text) >= 1001:
-            await ReplyMsg(msg, openai_text('text_1'))
+            await ReplyMsg(msg, openai_text(0))
         else:
             if msg.text.find(' ') == -1:
-                await ReplyMsg(msg, openai_text('text_2'))
+                await ReplyMsg(msg, openai_text(1))
             else:
                 try:
                     response = await openai.ChatCompletion.acreate(
@@ -71,13 +71,13 @@ async def main_gpt(msg):
                     )
                     await ReplyMsg(msg, response.choices[0].message.content.strip())
                 except:
-                    await ReplyMsg(msg, openai_text('text_3'))
+                    await ReplyMsg(msg, openai_text(2))
 
 @dp.message_handler(commands=['img'])
 async def main_img(msg):
     if await GetChatStatus(msg) is not False:
         if msg.text.find(' ') == -1:
-            await ReplyMsg(msg, openai_text('text_2'))
+            await ReplyMsg(msg, openai_text(1))
         else:
             try:
                 response = await openai.Image.acreate(
@@ -87,19 +87,19 @@ async def main_img(msg):
                 )
                 await ReplyPhoto(msg, response.data[0].url, caption=' '.join(msg.text.split()[1:]))
             except:
-                await ReplyMsg(msg, openai_text('text_3'))
+                await ReplyMsg(msg, openai_text(2))
 
 @dp.message_handler(commands=['wisper'])
 async def main_wisper(msg):
     if await GetChatStatus(msg) is not False:
         if 'reply_to_message' not in msg:
-            await ReplyMsg(msg, openai_text('text_4'))
+            await ReplyMsg(msg, openai_text(3))
         else:
             reply_msg = msg.reply_to_message
             audio_msg = reply_msg.voice if 'voice' in reply_msg else reply_msg.audio if 'audio' in reply_msg else None
             if audio_msg is not None:
                 if audio_msg.file_size >= 1048577:
-                    await ReplyMsg(msg, openai_text('text_5'))
+                    await ReplyMsg(msg, openai_text(4))
                 else:
                     try:
                         file_id = audio_msg.file_id
@@ -112,6 +112,6 @@ async def main_wisper(msg):
                         transcript = await openai.Audio.atranscribe('whisper-1', open(f'{FileName}.{file_format}', 'rb'))
                         await ReplyMsg(msg, transcript.text.strip())
                     except:
-                        await ReplyMsg(msg, openai_text('text_3'))
+                        await ReplyMsg(msg, openai_text(2))
             else:
-                await ReplyMsg(msg, openai_text('text_4'))
+                await ReplyMsg(msg, openai_text(3))

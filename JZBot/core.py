@@ -135,11 +135,11 @@ def GetConfig(key):
 def GetBotLang():
     return GetConfig('lang')
 
-def TextByLang(full_text, text):
+def TextByLang(full_text, number):
     if GetBotLang() in ['ru', 'uk']:
-        result = full_text[GetBotLang()][text]
+        result = full_text[GetBotLang()][number]
     else:
-        result = full_text['en'][text]
+        result = full_text['en'][number]
     return result
 
 async def GetChatStatus(msg):

@@ -3,24 +3,24 @@ import speech_recognition as sr
 from pydub import AudioSegment
 from asyncer import asyncify
 
-def stt_text(text):
+def stt_text(number):
     return TextByLang({
-        'ru': {
-            'text_1': 'Нужно ответить на сообщение которое содержит аудиофайл',
-            'text_2': 'Размер аудиофайла не должен превышать 5мб',
-            'text_3': 'Не удалось перевести голосовое сообщение в текст'
-        },
-        'uk': {
-            'text_1': 'Потрібно відповісти на повідомлення, яке містить аудіофайл',
-            'text_2': 'Розмір аудіофайлу не повинен перевищувати 5мб',
-            'text_3': 'Не вдалося перетворити аудіо на текст'
-        },
-        'en': {
-            'text_1': 'Reply to a message that contains an audio file',
-            'text_2': 'The size of the audio file must not exceed 5MB',
-            'text_3': 'Failed to convert audio to text'
-        }
-    }, text)
+        'ru': [
+            'Нужно ответить на сообщение которое содержит аудиофайл',
+            'Размер аудиофайла не должен превышать 5мб',
+            'Не удалось перевести голосовое сообщение в текст'
+        ],
+        'uk': [
+            'Потрібно відповісти на повідомлення, яке містить аудіофайл',
+            'Розмір аудіофайлу не повинен перевищувати 5мб',
+            'Не вдалося перетворити аудіо на текст'
+        ],
+        'en': [
+            'Reply to a message that contains an audio file',
+            'The size of the audio file must not exceed 5MB',
+            'Failed to convert audio to text'
+        ]
+    }, number)
 
 def stt(audio_file, lang):
     r = sr.Recognizer()
@@ -29,7 +29,7 @@ def stt(audio_file, lang):
         try:
             return r.recognize_google(audio_text, language=lang)
         except:
-            return stt_text('text_3')
+            return stt_text(2)
 
 def ConvertAudio(InputFile, OutputFile, OutputFormat):
     return AudioSegment.from_file(InputFile).export(OutputFile, format=OutputFormat)
@@ -38,13 +38,13 @@ def ConvertAudio(InputFile, OutputFile, OutputFormat):
 async def main_stt(msg):
     if await GetChatStatus(msg) is not False:
         if 'reply_to_message' not in msg:
-            await ReplyMsg(msg, stt_text('text_1'))
+            await ReplyMsg(msg, stt_text(0))
         else:
             reply_msg = msg.reply_to_message
             audio_msg = reply_msg.voice if 'voice' in reply_msg else reply_msg.audio if 'audio' in reply_msg else None
             if audio_msg is not None:
                 if audio_msg.file_size >= 5242880:
-                    await ReplyMsg(msg, stt_text('text_2'))
+                    await ReplyMsg(msg, stt_text(1))
                 else:
                     try:
                         file_id = audio_msg.file_id
@@ -59,6 +59,6 @@ async def main_stt(msg):
                         transcript = await asyncify(stt)(f'{FileName}.{file_format}', lang)
                         await ReplyMsg(msg, transcript)
                     except:
-                        await ReplyMsg(msg, stt_text('text_3'))
+                        await ReplyMsg(msg, stt_text(2))
             else:
-                await ReplyMsg(msg, stt_text('text_1'))
+                await ReplyMsg(msg, stt_text(0))

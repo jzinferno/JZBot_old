@@ -2,21 +2,21 @@ from JZBot import dp, GetChatStatus, outpdir, ReplyMsg, ReplyDocument, RundomNam
 from aiogram.types import InputFile
 from PIL import Image
 
-def compress_pdf_text(text):
+def compress_pdf_text(number):
     return TextByLang({
-        'ru': {
-            'text_1': 'Необходимо ответить на сообщение которое содержит pdf файл',
-            'text_2': 'Не удалось сжать pdf'
-        },
-        'uk': {
-            'text_1': 'Необхідно відповісти на повідомлення, яке містить pdf файл',
-            'text_2': 'Не вдалося стиснути pdf'
-        },
-        'en': {
-            'text_1': 'Reply to a message that contains a pdf file',
-            'text_2': 'Failed to compress pdf'
-        }
-    }, text)
+        'ru': [
+            'Необходимо ответить на сообщение которое содержит pdf файл',
+            'Не удалось сжать pdf'
+        ],
+        'uk': [
+            'Необхідно відповісти на повідомлення, яке містить pdf файл',
+            'Не вдалося стиснути pdf'
+        ],
+        'en': [
+            'Reply to a message that contains a pdf file',
+            'Failed to compress pdf'
+        ]
+    }, number)
 
 async def compress_pdf(input_file, output_file):
     await RunShellCmd(f'gs -q -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile={output_file} {input_file}')
@@ -25,7 +25,7 @@ async def compress_pdf(input_file, output_file):
 async def main_compress(msg):
     if await GetChatStatus(msg) is not False:
         if 'reply_to_message' not in msg:
-            await ReplyMsg(msg, compress_pdf_text('text_1'))
+            await ReplyMsg(msg, compress_pdf_text(0))
         else:
             reply_msg = msg.reply_to_message
             if reply_msg.document.mime_type.split('/')[-1] == 'pdf':
@@ -36,7 +36,7 @@ async def main_compress(msg):
                     await compress_pdf(FileName + '.pdf', FileName + '-compressed.pdf')
                     await ReplyDocument(msg, InputFile(FileName + '-compressed.pdf'))
                 except:
-                    await ReplyMsg(msg, compress_pdf_text('text_2'))
+                    await ReplyMsg(msg, compress_pdf_text(1))
             else:
-                await ReplyMsg(msg, compress_pdf_text('text_1'))
+                await ReplyMsg(msg, compress_pdf_text(0))
         
