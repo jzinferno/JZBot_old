@@ -146,7 +146,7 @@ async def GetChatStatus(msg):
     jfile = open(configf, 'r')
     result = json.load(jfile)
     jfile.close()
-    if str(msg.chat.id) in result['chats']:
+    if msg.chat.id in result['chats']:
         return True
     else:
         await ReplyMsg(msg, ':(')

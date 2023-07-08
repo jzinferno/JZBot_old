@@ -23,12 +23,12 @@ async def main_hello(msg):
 
 ```json
 {
-  "bot_token": "0000000000:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "openai_key": "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "bot_token": "",
+  "openai_key": "",
+  "openweather_key": "",
   "lang": "en",
-  "chats": {
-    "0000000000": 1,
-    "9999999999": 1
-  }
+  "chats": [
+    -1001609560469
+  ]
 }
 ```
