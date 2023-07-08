@@ -23,8 +23,8 @@ async def main_tt(msg):
         if 'https://' in msg.text and 'tiktok.com' in msg.text:
             try:
                 async with AsyncClient() as client:
-                    tik_get = (await client.get(f'https://api.douyin.wtf/api?url={msg.text.split()[1]}&minimal=true')).json()
-                    await ReplyVideo(msg, tik_get['nwm_video_url'], caption=tik_get['desc'])
+                    tt_get = (await client.get(f'https://api.douyin.wtf/api?url={msg.text.split()[1]}&minimal=true')).json()
+                    await ReplyVideo(msg, tt_get['nwm_video_url'], caption=tt_get['desc'])
             except:
                 await ReplyMsg(msg, tt_text('text_2'))
         else:
