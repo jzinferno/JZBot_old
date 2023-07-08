@@ -1,1 +1,1 @@
-version = '0.0.3-jzinferno'
+version = '0.0.4-jzinferno'
