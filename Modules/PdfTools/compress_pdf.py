@@ -1,5 +1,4 @@
-from JZBot import dp, GetChatStatus, outpdir, ReplyMsg, ReplyDocument, RundomName, DownloadFile, TextByLang, RunShellCmd
-from aiogram.types import InputFile
+from JZBot import dp, GetChatStatus, outpdir, ReplyMsg, ReplyDocument, RundomName, DownloadFile, TextByLang, RunShellCmd, InputFile, Message
 from PIL import Image
 
 def compress_pdf_text(number):
@@ -22,7 +21,7 @@ async def compress_pdf(input_file, output_file):
     await RunShellCmd(f'gs -q -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile={output_file} {input_file}')
 
 @dp.message_handler(commands=['compress'])
-async def main_compress(msg):
+async def main_compress(msg: Message):
     if await GetChatStatus(msg) is not False:
         if 'reply_to_message' not in msg:
             await ReplyMsg(msg, compress_pdf_text(0))

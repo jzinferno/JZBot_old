@@ -1,4 +1,4 @@
-from JZBot import dp, GetChatStatus, ReplyVideo, ReplyMsg, TextByLang
+from JZBot import dp, GetChatStatus, ReplyVideo, ReplyMsg, TextByLang, Message
 from httpx import AsyncClient
 
 def tt_text(number):
@@ -18,7 +18,7 @@ def tt_text(number):
     }, number)
 
 @dp.message_handler(commands=['tt'])
-async def main_tt(msg):
+async def main_tt(msg: Message):
     if await GetChatStatus(msg) is not False:
         if 'https://' in msg.text and 'tiktok.com' in msg.text:
             try:

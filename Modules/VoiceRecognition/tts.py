@@ -1,4 +1,4 @@
-from JZBot import dp, outpdir, GetChatStatus, ReplyMsg, RundomName, ReplyVoice, RunShellCmd, TextByLang
+from JZBot import dp, outpdir, GetChatStatus, ReplyMsg, RundomName, ReplyVoice, RunShellCmd, TextByLang, Message
 from gpytranslate import Translator
 
 def tts_text(number):
@@ -18,7 +18,7 @@ def tts_text(number):
     }, number)
 
 @dp.message_handler(commands=['tts'])
-async def main_tts(msg):
+async def main_tts(msg: Message):
     if await GetChatStatus(msg) is not False:
         try:
             translator = Translator()

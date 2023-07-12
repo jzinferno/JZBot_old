@@ -5,6 +5,8 @@ from pathlib import Path
 from glob import glob
 from os import getenv
 
+from aiogram.types import CallbackQuery, Message, InputFile
+
 workdir = getenv('JZBOT_WORKDIR')
 configf = workdir + '/config.json'
 outpdir = workdir + '/.out'

@@ -1,4 +1,4 @@
-from JZBot import dp, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto, DownloadFile, TextByLang, RundomName
+from JZBot import dp, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto, DownloadFile, TextByLang, RundomName, Message
 from Modules.VoiceRecognition.stt import ConvertAudio
 from pydub import AudioSegment
 from asyncer import asyncify
@@ -33,7 +33,7 @@ def openai_text(number):
     }, number)
 
 @dp.message_handler(commands=['chat'])
-async def main_chat(msg):
+async def main_chat(msg: Message):
     if await GetChatStatus(msg) is not False:
         if len(msg.text) >= 1001:
             await ReplyMsg(msg, openai_text(0))
@@ -53,7 +53,7 @@ async def main_chat(msg):
                     await ReplyMsg(msg, openai_text(2))
 
 @dp.message_handler(commands=['gpt'])
-async def main_gpt(msg):
+async def main_gpt(msg: Message):
     if await GetChatStatus(msg) is not False:
         if len(msg.text) >= 1001:
             await ReplyMsg(msg, openai_text(0))
@@ -74,7 +74,7 @@ async def main_gpt(msg):
                     await ReplyMsg(msg, openai_text(2))
 
 @dp.message_handler(commands=['img'])
-async def main_img(msg):
+async def main_img(msg: Message):
     if await GetChatStatus(msg) is not False:
         if msg.text.find(' ') == -1:
             await ReplyMsg(msg, openai_text(1))
@@ -90,7 +90,7 @@ async def main_img(msg):
                 await ReplyMsg(msg, openai_text(2))
 
 @dp.message_handler(commands=['wisper'])
-async def main_wisper(msg):
+async def main_wisper(msg: Message):
     if await GetChatStatus(msg) is not False:
         if 'reply_to_message' not in msg:
             await ReplyMsg(msg, openai_text(3))

@@ -1,5 +1,4 @@
-from JZBot import dp, GetBotLang, GetChatStatus, SetConfig, CreateBtn, AddBtns, ReplyMsg, EditBtns, TextByLang
-from aiogram import types
+from JZBot import dp, GetBotLang, GetChatStatus, SetConfig, CreateBtn, AddBtns, ReplyMsg, EditBtns, TextByLang, CallbackQuery, Message
 
 def admin_text(number):
     return TextByLang({
@@ -41,12 +40,12 @@ def langsBtns():
     )
 
 @dp.message_handler(commands=['admin'])
-async def main_admin(msg: types.Message):
+async def main_admin(msg: Message):
     if await GetChatStatus(msg) is not False:
         await ReplyMsg(msg, text=admin_text(0), reply_markup=settingsBtns())
 
 @dp.callback_query_handler(lambda c: c.data in ['set_lang', 'sign_in', 'ru_lang', 'uk_lang', 'en_lang', 'lang_back_btn'])
-async def process_callback_button(cq: types.CallbackQuery):
+async def process_callback_button(cq: CallbackQuery):
     if cq.data == 'set_lang':
         await EditBtns(cq, text=admin_text(1) + GetBotLang(), reply_markup=langsBtns())
     elif cq.data == 'ru_lang':

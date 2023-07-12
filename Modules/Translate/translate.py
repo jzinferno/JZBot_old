@@ -1,4 +1,4 @@
-from JZBot import dp, GetBotLang, GetChatStatus, ReplyMsg, TextByLang
+from JZBot import dp, GetBotLang, GetChatStatus, ReplyMsg, TextByLang, Message
 from gpytranslate import Translator
 import aiofiles
 
@@ -22,7 +22,7 @@ def translate_text(number):
     }, number)
 
 @dp.message_handler(commands=['translate'])
-async def main_translate(msg):
+async def main_translate(msg: Message):
     if await GetChatStatus(msg) is not False:
         cmd = msg.text.split()
         if 'reply_to_message' in msg:
@@ -42,7 +42,7 @@ async def main_translate(msg):
                 await ReplyMsg(msg, translate_text(1))
 
 @dp.message_handler(commands=['lang'])
-async def main_lang(msg):
+async def main_lang(msg: Message):
     if await GetChatStatus(msg) is not False:
         if 'reply_to_message' in msg:
             text = msg.reply_to_message.text

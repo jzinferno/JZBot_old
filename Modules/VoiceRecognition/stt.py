@@ -1,4 +1,4 @@
-from JZBot import dp, outpdir, GetChatStatus, GetBotLang, ReplyMsg, RundomName, DownloadFile, TextByLang
+from JZBot import dp, outpdir, GetChatStatus, GetBotLang, ReplyMsg, RundomName, DownloadFile, TextByLang, Message
 import speech_recognition as sr
 from pydub import AudioSegment
 from asyncer import asyncify
@@ -35,7 +35,7 @@ def ConvertAudio(InputFile, OutputFile, OutputFormat):
     return AudioSegment.from_file(InputFile).export(OutputFile, format=OutputFormat)
 
 @dp.message_handler(commands=['stt'])
-async def main_stt(msg):
+async def main_stt(msg: Message):
     if await GetChatStatus(msg) is not False:
         if 'reply_to_message' not in msg:
             await ReplyMsg(msg, stt_text(0))

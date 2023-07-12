@@ -1,4 +1,4 @@
-from JZBot import dp, GetChatStatus, GetConfig, ReplyMsg, TextByLang
+from JZBot import dp, GetChatStatus, GetConfig, ReplyMsg, TextByLang, Message
 from httpx import AsyncClient
 
 openweather_key = GetConfig('openweather_key')
@@ -44,10 +44,10 @@ code_to_smile = {
     'Mist': '\U0001F32B'
 }
 
-async def get_weather(citi):
+async def get_weather(city):
     result = ''
     async with AsyncClient() as client:
-        x = (await client.get('http://api.openweathermap.org/data/2.5/weather?appid=' + openweather_key + '&q=' + citi + '&units=metric&lang=en')).json()
+        x = (await client.get('http://api.openweathermap.org/data/2.5/weather?appid=' + openweather_key + '&q=' + city + '&units=metric&lang=en')).json()
         if x['cod'] != '404':
             result += f"{weather_text(0)}: {x['sys']['country']} {x['name']}\n"
             result += f"{weather_text(1)}: {x['main']['temp']}°C {code_to_smile[x['weather'][0]['main']]}\n"
@@ -59,7 +59,7 @@ async def get_weather(citi):
     return result
 
 @dp.message_handler(commands=['weather'])
-async def main_weather(msg):
+async def main_weather(msg: Message):
     if await GetChatStatus(msg) is not False:
         try:
             await ReplyMsg(msg, await get_weather(' '.join(msg.text.split()[1:])))

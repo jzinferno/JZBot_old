@@ -1,5 +1,4 @@
-from JZBot import dp, bot, GetBotLang, GetChatStatus, outpdir, ReplyMsg, ReplyDocument, RundomName, DownloadFile, TextByLang
-from aiogram.types import InputFile
+from JZBot import dp, bot, GetBotLang, GetChatStatus, outpdir, ReplyMsg, ReplyDocument, RundomName, DownloadFile, TextByLang, InputFile, Message
 from PIL import Image
 
 def convert_text(number):
@@ -22,7 +21,7 @@ def convert_text(number):
     }, number)
 
 @dp.message_handler(commands=['convert'])
-async def main_convert(msg):
+async def main_convert(msg: Message):
     if await GetChatStatus(msg) is not False:
         if 'reply_to_message' not in msg:
             await ReplyMsg(msg, convert_text(0))

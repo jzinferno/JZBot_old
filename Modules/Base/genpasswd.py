@@ -1,4 +1,4 @@
-from JZBot import dp, ReplyMsg, RundomName, TextByLang
+from JZBot import dp, ReplyMsg, RundomName, TextByLang, Message
 
 def genpasswd_text(number):
     return TextByLang({
@@ -14,7 +14,7 @@ def genpasswd_text(number):
     }, number)
 
 @dp.message_handler(commands=['genpasswd'])
-async def main_genpasswd(msg):
+async def main_genpasswd(msg: Message):
     count = int(msg.text.split()[1]) if len(msg.text.split()) >= 2 else 10
     if count >= 251:
         await ReplyMsg(msg, genpasswd_text(0))

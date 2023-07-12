@@ -1,9 +1,8 @@
-from JZBot import dp, GetChatStatus, GetBotLang, ReplyMsg, CreateBtn, AddBtns, ReplyMsg, EditBtns, RunShellCmd, TextByLang
+from JZBot import dp, GetChatStatus, GetBotLang, ReplyMsg, CreateBtn, AddBtns, ReplyMsg, EditBtns, RunShellCmd, TextByLang, Message, CallbackQuery
 from .memory import sysinfo_ram, sysinfo_swap, sysinfo_disk
 from .distro import sysinfo_distro
 from .uptime import sysinfo_uptime
 from .cpu import sysinfo_cpu
-from aiogram import types
 from os import uname
 
 def sysinfo_text(number):
@@ -41,12 +40,12 @@ def sysInfoBack():
     return AddBtns(CreateBtn(sysinfo_text(1), 'back'))
 
 @dp.message_handler(commands=['sysinfo'])
-async def main_sysinfo(msg: types.Message):
+async def main_sysinfo(msg: Message):
     if await GetChatStatus(msg) is not False:
         await ReplyMsg(msg, reply_markup=sysInfoButtons(), text=sysinfo_text(0))
 
 @dp.callback_query_handler(lambda c: c.data in ['hostname', 'kernel', 'os', 'arch', 'uptime', 'disk', 'ram', 'swap', 'cpu', 'uname', 'neofetch', 'back'])
-async def process_callback_button(cq: types.CallbackQuery):
+async def process_callback_button(cq: CallbackQuery):
     if cq.data == 'arch':
         await EditBtns(cq, reply_markup=sysInfoBack(), text='Arch: ' + uname().machine)
     elif cq.data == 'hostname':
