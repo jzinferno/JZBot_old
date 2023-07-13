@@ -106,7 +106,7 @@ async def main_wisper(msg: Message):
                         file_format = 'mp4' if 'video_note' in reply_msg else audio_msg.mime_type.split('/')[1]
                         FileName = f'{outpdir}/{file_id}-{RundomName(10)}'
                         await DownloadFile(file_id, f'{FileName}.{file_format}')
-                        if file_format in ['mp4', 'ogg']:
+                        if file_format in ['mp4', 'mpeg', 'ogg']:
                             await asyncify(ConvertAudio)(f'{FileName}.{file_format}', f'{FileName}.mp3', 'mp3')
                             file_format = 'mp3'
                         with open(f'{FileName}.{file_format}', 'rb') as audio_file:
