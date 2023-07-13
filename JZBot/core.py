@@ -126,13 +126,12 @@ def SetConfig(key, value):
         jfile.truncate()
 
 def GetConfig(key):
-    jfile = open(configf, 'r')
-    result = json.load(jfile)
-    jfile.close()
-    if not key in result:
-        SetConfig(key, '')
-        return None
-    return result[key]
+    with open(configf, 'r+') as jfile:
+        data = json.load(jfile)
+        if not key in data:
+            SetConfig(key, '')
+            return None
+    return data[key]
 
 def GetBotLang():
     return GetConfig('lang')
@@ -145,10 +144,7 @@ def TextByLang(full_text, number):
     return result
 
 async def GetChatStatus(msg):
-    jfile = open(configf, 'r')
-    result = json.load(jfile)
-    jfile.close()
-    if msg.chat.id in result['chats']:
+    if msg.chat.id in GetConfig('chats'):
         return True
     else:
         await ReplyMsg(msg, ':(')
