@@ -1,0 +1,8 @@
+{
+  "author": "@jzinferno",
+  "help": {
+    "ru": "/weather - Выводит текущую погоду",
+    "uk": "/weather",
+    "en": "/weather"
+  }
+}

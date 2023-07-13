@@ -1,0 +1,8 @@
+{
+  "author": "@jzinferno",
+  "help": {
+    "ru": "/admin - Настройки бота\n/genpasswd - Генерирует пароль",
+    "uk": "/admin",
+    "en": "/admin"
+  }
+}

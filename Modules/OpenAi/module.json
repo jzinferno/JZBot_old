@@ -1,0 +1,8 @@
+{
+  "author": "@jzinferno",
+  "help": {
+    "ru": "/chat - Обращается к text-davinci-003 используя openai\n/gpt - Обращается к gpt-3.5-turbo используя openai\n/img - Генерирует изображение с помощью openai\n/wisper - Голосовое сообщение в текст с помощью openai",
+    "uk": "/chat",
+    "en": "/chat"
+  }
+}
