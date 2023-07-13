@@ -1,5 +1,4 @@
 from JZBot import dp, GetChatStatus, outpdir, ReplyMsg, ReplyDocument, RundomName, DownloadFile, TextByLang, RunShellCmd, InputFile, Message
-from PIL import Image
 
 def compress_pdf_text(number):
     return TextByLang({
