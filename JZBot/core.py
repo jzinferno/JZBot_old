@@ -1,8 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram import Bot, Dispatcher, executor
-import asyncio, json, os, random, string, sys
-from pathlib import Path
-from glob import glob
+import asyncio, json, random, string
 from os import getenv
 
 from aiogram.types import CallbackQuery, Message, InputFile

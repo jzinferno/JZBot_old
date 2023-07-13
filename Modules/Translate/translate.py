@@ -1,6 +1,5 @@
 from JZBot import dp, GetBotLang, GetChatStatus, ReplyMsg, TextByLang, Message
 from gpytranslate import Translator
-import aiofiles
 
 def translate_text(number):
     return TextByLang({
