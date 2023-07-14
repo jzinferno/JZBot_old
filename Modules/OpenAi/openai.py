@@ -82,7 +82,7 @@ async def main_img(msg: Message):
             try:
                 response = await openai.Image.acreate(
                     prompt=' '.join(msg.text.split()[1:]),
-                    size='256x256',
+                    size='512x512',
                     n=1
                 )
                 await ReplyPhoto(msg, InputFile.from_url(response.data[0].url), caption=' '.join(msg.text.split()[1:]))
