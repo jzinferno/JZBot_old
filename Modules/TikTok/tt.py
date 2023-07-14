@@ -1,4 +1,4 @@
-from JZBot import dp, GetChatStatus, ReplyVideo, ReplyMsg, TextByLang, Message
+from JZBot import dp, GetChatStatus, ReplyVideo, ReplyMsg, TextByLang, Message, InputFile
 from httpx import AsyncClient
 
 def tt_text(number):
@@ -24,7 +24,7 @@ async def main_tt(msg: Message):
             try:
                 async with AsyncClient() as client:
                     tt_get = (await client.get(f'https://api.douyin.wtf/api?url={msg.text.split()[1]}&minimal=true')).json()
-                    await ReplyVideo(msg, tt_get['nwm_video_url'], caption=tt_get['desc'])
+                    await ReplyVideo(msg, InputFile.from_url(tt_get['nwm_video_url']), caption=tt_get['desc'])
             except:
                 await ReplyMsg(msg, tt_text(1))
         else:

@@ -1,4 +1,4 @@
-from JZBot import dp, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto, DownloadFile, TextByLang, RundomName, Message
+from JZBot import dp, outpdir, GetBotLang, GetConfig, GetChatStatus, ReplyMsg, ReplyPhoto, DownloadFile, TextByLang, RundomName, Message, InputFile
 from Modules.VoiceRecognition.stt import ConvertAudio
 from pydub import AudioSegment
 from asyncer import asyncify
@@ -85,7 +85,7 @@ async def main_img(msg: Message):
                     size='256x256',
                     n=1
                 )
-                await ReplyPhoto(msg, response.data[0].url, caption=' '.join(msg.text.split()[1:]))
+                await ReplyPhoto(msg, InputFile.from_url(response.data[0].url), caption=' '.join(msg.text.split()[1:]))
             except:
                 await ReplyMsg(msg, openai_text(2))
 
