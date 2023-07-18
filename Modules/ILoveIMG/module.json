@@ -1,0 +1,8 @@
+{
+  "author": "@jzinferno",
+  "help": {
+    "ru": "/compressimg - Сжимает изображение\n/convertimg - Конвертирует изображение в другой формат\n/cropimg - Обрезает изображение\n/resizeimg - Меняет размер изображения",
+    "uk": "/compressimg - Стискає зображення\n/convertimg - Конвертує зображення в інший формат\n/cropimg - Вирізає зображення\n/resizeimg - Змінює розмір зображення",
+    "en": "/compressimg - Compresses an image\n/convertimg - Converts an image to another format\n/cropimg - Crops an image\n/resizeimg - Changes the size of an image"
+  }
+}

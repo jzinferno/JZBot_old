@@ -21,6 +21,7 @@ async def main_hello(msg):
   "bot_token": "",
   "openai_key": "",
   "openweather_key": "",
+  "iloveimg_key": "",
   "lang": "en",
   "chats": [
     -1001609560469

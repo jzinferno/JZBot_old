@@ -2,7 +2,7 @@
   "author": "@jzinferno",
   "help": {
     "ru": "/weather - Выводит текущую погоду в городе",
-    "uk": "/погода - Виводить поточну погоду в місті",
+    "uk": "/weather - Виводить поточну погоду в місті",
     "en": "/weather - Displays current weather in city"
   }
 }
