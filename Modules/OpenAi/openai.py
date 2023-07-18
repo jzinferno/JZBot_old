@@ -14,21 +14,27 @@ def openai_text(number):
             'Вы забыли ввести текст запроса',
             'Не удалось выполнить запрос OpenAi',
             'Нужно ответить на сообщение которое содержит аудиофайл',
-            'Размер аудиофайла не должен превышать 5МБ'
+            'Размер аудиофайла не должен превышать 5МБ',
+            'OpenAI токен временно изменён на новый',
+            'Используется токен по умолчанию'
         ],
         'uk': [
             'Ваш запит не може бути більше ніж 1000 символів',
             'Ви забули ввести текст запиту',
             'Не вдалося виконати запит OpenAi',
             'Потрібно відповісти на повідомлення, яке містить аудіофайл',
-            'Розмір аудіофайлу не повинен перевищувати 5МБ'
+            'Розмір аудіофайлу не повинен перевищувати 5МБ',
+            'OpenAI токен тимчасово змінено на новий',
+            'Використовується токен за замовчуванням'
         ],
         'en': [
             'Your request cannot be more than 1000 characters',
             'You forgot to enter the request text',
             'Failed to execute OpenAi request',
             'Reply to a message that contains an audio file',
-            'The size of the audio file must not exceed 5MB'
+            'The size of the audio file must not exceed 5MB',
+            'OpenAI token is temporarily changed to a new one',
+            'Default token is used'
         ]
     }, number)
 
@@ -116,3 +122,13 @@ async def main_wisper(msg: Message):
                         await ReplyMsg(msg, openai_text(2))
             else:
                 await ReplyMsg(msg, openai_text(3))
+
+@dp.message_handler(commands=['token'])
+async def main_token(msg: Message):
+    if await GetChatStatus(msg) is not False:
+        if msg.text.find(' ') == -1:
+            openai.api_key = GetConfig('openai_key')
+            await ReplyMsg(msg, openai_text(5))
+        else:
+            openai.api_key = msg.text.split()[1]
+            await ReplyMsg(msg, openai_text(6))
