@@ -2,7 +2,7 @@
   "author": "@jzinferno",
   "help": {
     "ru": "/translate - Переводит текст\n/lang - Определяет язык текста",
-    "uk": "/translate",
-    "en": "/translate"
+    "uk": "/translate - Перекладає текст\n/lang - Визначає мову тексту",
+    "en": "/translate - Translates text\n/lang - Determines the language of the text"
   }
 }

@@ -2,7 +2,7 @@
   "author": "@jzinferno",
   "help": {
     "ru": "/admin - Настройки бота\n/genpasswd - Генерирует пароль",
-    "uk": "/admin",
-    "en": "/admin"
+    "uk": "/admin - Налаштування бота\n/genpasswd - Генерує пароль",
+    "en": "/admin - Bot settings\n/genpasswd - Generates a password"
   }
 }

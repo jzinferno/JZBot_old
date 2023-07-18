@@ -1,8 +1,8 @@
 {
   "author": "@jzinferno",
   "help": {
-    "ru": "/chat - Обращается к text-davinci-003 используя openai\n/gpt - Обращается к gpt-3.5-turbo используя openai\n/img - Генерирует изображение с помощью openai\n/wisper - Голосовое сообщение в текст с помощью openai",
-    "uk": "/chat",
-    "en": "/chat"
+    "ru": "/chat - Обращается к text-davinci-003 используя openai\n/gpt - Обращается к gpt-3.5-turbo используя openai\n/img - Генерирует изображение с помощью openai\n/wisper - Голосовое сообщение в текст с помощью openai\n/token - Временно меняет токен OpenAI",
+    "uk": "/chat - Звертається до text-davinci-003 використовуючи openai\n/gpt - Звертається до gpt-3.5-turbo використовуючи openai\n/img - Генерує зображення за допомогою openai\n/wisper - Голосове повідомлення у текст за допомогою openai\n/token - Тимчасово змінює токен OpenAI",
+    "en": "/chat - Uses text-davinci-003 via OpenAI\n/gpt - Uses gpt-3.5-turbo via OpenAI\n/img - Generates an image using OpenAI\n/wisper - Converts voice messages into text using OpenAI\n/token - Temporarily changes OpenAI token"
   }
 }

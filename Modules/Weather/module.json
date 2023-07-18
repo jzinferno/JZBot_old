@@ -1,8 +1,8 @@
 {
   "author": "@jzinferno",
   "help": {
-    "ru": "/weather - Выводит текущую погоду",
-    "uk": "/weather",
-    "en": "/weather"
+    "ru": "/weather - Выводит текущую погоду в городе",
+    "uk": "/погода - Виводить поточну погоду в місті",
+    "en": "/weather - Displays current weather in city"
   }
 }

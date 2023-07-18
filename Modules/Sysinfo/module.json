@@ -2,7 +2,7 @@
   "author": "@jzinferno",
   "help": {
     "ru": "/sysinfo - Выводит системную информацию",
-    "uk": "/sysinfo",
-    "en": "/sysinfo"
+    "uk": "/sysinfo - Виводить системну інформацію",
+    "en": "/sysinfo - Displays system information"
   }
 }

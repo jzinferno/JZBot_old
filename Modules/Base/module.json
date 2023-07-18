@@ -2,7 +2,7 @@
   "author": "@jzinferno",
   "help": {
     "ru": "/help - Печатает подсказки\n/id - Печатает ID текущего чата\n/userid - Печатает ID пользователя\n/version - Печатает версию бота",
-    "uk": "/help\n",
-    "en": "/help\n"
+    "uk": "/help - Виводить підказки\n/id - Виводить ID поточного чату\n/userid - Виводить ID користувача\n/version - Виводить версію бота",
+    "en": "/help - Prints help messages\n/id - Prints the ID of current chat\n/userid - Prints user ID\n/version - Prints the bot version"
   }
 }

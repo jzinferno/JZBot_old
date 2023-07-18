@@ -2,7 +2,7 @@
   "author": "@jzinferno",
   "help": {
     "ru": "/tts - Переводит текст в голосовое сообщение\n/stt - Переводит голосовое сообщение в текст",
-    "uk": "/tts",
-    "en": "/tts"
+    "uk": "/tts - Перетворює текст на голосове повідомлення\n/stt - Перетворює голосове повідомлення на текст",
+    "en": "/tts - Converts text into a voice message\n/stt - Converts a voice message into text"
   }
 }

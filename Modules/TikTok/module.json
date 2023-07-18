@@ -2,7 +2,7 @@
   "author": "@jzinferno",
   "help": {
     "ru": "/tt - Скачивает видео с TikTok",
-    "uk": "/tt",
-    "en": "/tt"
+    "uk": "/tt - Завантажує відео з TikTok",
+    "en": "/tt - Downloads videos from TikTok"
   }
 }
