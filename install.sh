@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git clone --depth=1 https://github.com/jzinferno/JZBot.git
+git clone --recurse --depth=1 https://github.com/jzinferno/JZBot.git
 cd JZBot
 python3 -m venv venv
 source venv/bin/activate
