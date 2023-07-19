@@ -1,0 +1,6 @@
+[submodule "Modules/ILovePDF/ILovePDF"]
+	path = Modules/ILovePDF/ILovePDF
+	url = https://github.com/jzinferno/ILovePDF.git
+[submodule "Modules/ILoveIMG/ILoveIMG"]
+	path = Modules/ILoveIMG/ILoveIMG
+	url = https://github.com/jzinferno/ILoveIMG.git
