@@ -1,8 +1,8 @@
 {
   "author": "@jzinferno",
   "help": {
-    "ru": "/help - Печатает подсказки\n/id - Печатает ID текущего чата\n/userid - Печатает ID пользователя\n/version - Печатает версию бота",
-    "uk": "/help - Виводить підказки\n/id - Виводить ID поточного чату\n/userid - Виводить ID користувача\n/version - Виводить версію бота",
-    "en": "/help - Prints help messages\n/id - Prints the ID of current chat\n/userid - Prints user ID\n/version - Prints the bot version"
+    "ru": "/help - Печатает подсказки\n/helpall - Печатает все подсказки\n/id - Печатает ID текущего чата\n/userid - Печатает ID пользователя\n/version - Печатает версию бота",
+    "uk": "/help - Виводить підказки\n/helpall - Виводить всі підказки\n/id - Виводить ID поточного чату\n/userid - Виводить ID користувача\n/version - Виводить версію бота",
+    "en": "/help - Prints help messages\n/helpall - Prints all help messages\n/id - Prints the ID of current chat\n/userid - Prints user ID\n/version - Prints the bot version"
   }
 }

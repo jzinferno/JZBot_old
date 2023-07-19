@@ -16,6 +16,14 @@ async def main_version(msg: Message):
             JZBotHelp.append(ModuleName + ' - ' + JZBotHelpFull[ModuleName]['author'])
         await ReplyMsg(msg, '\n'.join(JZBotHelp))
 
+@dp.message_handler(commands=['helpall'])
+async def main_version(msg: Message):
+    JZBotHelpFull = GetModulesHelp()
+    JZBotHelp = []
+    for ModuleName in JZBotHelpFull:
+        JZBotHelp.append(JZBotHelpFull[ModuleName]['help'])
+    await ReplyMsg(msg, '\n'.join(JZBotHelp))
+
 @dp.message_handler(commands=['id'])
 async def main_id(msg: Message):
     await ReplyMsg(msg, msg.chat.id)
