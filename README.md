@@ -22,6 +22,7 @@ async def main_hello(msg):
   "openai_key": "",
   "openweather_key": "",
   "iloveimg_key": "",
+  "ilovepdf_key": "",
   "lang": "en",
   "chats": [
     -1001609560469

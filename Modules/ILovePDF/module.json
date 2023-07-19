@@ -1,0 +1,8 @@
+{
+  "author": "@jzinferno",
+  "help": {
+    "ru": "/compresspdf - Сжимает PDF\n/imagepdf - Конвертирует изображение в PDF\n/officepdf - Конвертирует офисный файл в PDF\n/protectpdf - Ставит пароль на файл PDF\n/unlockpdf - Удаляет пароль с файла PDF",
+    "uk": "/compresspdf - Стискає PDF\n/imagepdf - Конвертує зображення в PDF\n/officepdf - Конвертує офісний файл в PDF\n/protectpdf - Встановлює пароль на файл PDF\n/unlockpdf - Видаляє пароль з файла PDF",
+    "en": "/compresspdf - Compresses PDF\n/imagepdf - Converts image to PDF\n/officepdf - Converts office file to PDF\n/protectpdf - Sets password on PDF file\n/unlockpdf - Removes password from PDF file"
+  }
+}
